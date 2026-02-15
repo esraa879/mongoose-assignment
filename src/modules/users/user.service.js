@@ -83,12 +83,10 @@ export const updateUser = async (req, res) => {
   try {
     const userId = req.userId;
 
-    // ممنوع تعديل الباسورد هنا
     if (req.body.password) {
       return res.status(400).json({ message: "Cannot update password" });
     }
 
-    // لو بيغير email اتأكد أنه مش موجود لحد تاني
     if (req.body.email) {
       const emailExists = await userModel.findOne({ email: req.body.email });
       if (emailExists && emailExists._id.toString() !== userId) {
